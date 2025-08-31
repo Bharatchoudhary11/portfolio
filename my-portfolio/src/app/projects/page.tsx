@@ -12,9 +12,23 @@ export default function ProjectsPage() {
   const [projects, setProjects] = useState<Project[]>([]);
 
   useEffect(() => {
-    fetch("/api/projects")
-      .then((res) => res.json())
-      .then((data) => setProjects(data));
+    async function loadProjects() {
+      try {
+        const res = await fetch("/api/projects");
+        if (!res.ok) {
+          console.error("Failed to fetch projects", res.statusText);
+          return;
+        }
+
+        const text = await res.text();
+        const data: Project[] = text ? JSON.parse(text) : [];
+        setProjects(data);
+      } catch (err) {
+        console.error("Error loading projects", err);
+      }
+    }
+
+    loadProjects();
 
     const evtSource = new EventSource("/api/projects/stream");
     evtSource.onmessage = (e) => {
