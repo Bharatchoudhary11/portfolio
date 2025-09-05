@@ -205,6 +205,142 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Experience Section */}
+      <section className="py-20 px-4 bg-gradient-to-br from-gray-50 to-blue-50">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+              Professional Experience
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              My journey in software development with impactful contributions and measurable results
+            </p>
+          </div>
+
+          <div className="space-y-8">
+            {/* Current Role */}
+            <div className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 border-l-4 border-blue-500">
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                <div>
+                  <h3 className="text-2xl font-bold text-gray-800 mb-2">Software Development Engineer</h3>
+                  <p className="text-lg text-blue-600 font-semibold">Ingenii Digitalization</p>
+                  <p className="text-gray-600">Pune, Maharashtra</p>
+                </div>
+                <div className="mt-4 md:mt-0">
+                  <span className="inline-block px-4 py-2 bg-blue-100 text-blue-800 rounded-full font-semibold">
+                    June 2025 - Present
+                  </span>
+                </div>
+              </div>
+              <div className="space-y-4">
+                <div className="bg-blue-50 p-4 rounded-lg">
+                  <p className="text-gray-700 leading-relaxed">
+                    <span className="font-semibold text-blue-800">Key Achievement:</span> Engineered features for Study Pot's assessment module, leading to a <span className="font-bold text-green-600">25% increase in student engagement</span> with practice sessions and a <span className="font-bold text-green-600">15% improvement in average assessment scores</span> within first month.
+                  </p>
+                </div>
+                <ul className="space-y-3 text-gray-700">
+                  <li className="flex items-start">
+                    <svg className="w-5 h-5 text-blue-500 mt-1 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <span>To facilitate student performance tracking, the platform includes features such as assessments, practice sessions, notes, notifications, and analytics.</span>
+                  </li>
+                  <li className="flex items-start">
+                    <svg className="w-5 h-5 text-blue-500 mt-1 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <span>Designed an intuitive admin dashboard that enabled <span className="font-semibold text-blue-600">10+ institutions</span> to efficiently manage and publish content across their apps, <span className="font-semibold text-green-600">reducing manual overhead by 40%</span>.</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Previous Role */}
+            <div className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 border-l-4 border-purple-500">
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                <div>
+                  <h3 className="text-2xl font-bold text-gray-800 mb-2">Software Development Engineer Intern</h3>
+                  <p className="text-lg text-purple-600 font-semibold">Spring Money</p>
+                  <p className="text-gray-600">Pune, Maharashtra</p>
+                </div>
+                <div className="mt-4 md:mt-0">
+                  <span className="inline-block px-4 py-2 bg-purple-100 text-purple-800 rounded-full font-semibold">
+                    Oct 2024 - April 2025
+                  </span>
+                </div>
+              </div>
+              <div className="space-y-4">
+                <div className="bg-purple-50 p-4 rounded-lg">
+                  <p className="text-gray-700 leading-relaxed">
+                    <span className="font-semibold text-purple-800">Security Focus:</span> Built a secure input page with encryption to protect personal and banking data, making data flow smoother and <span className="font-bold text-green-600">reducing the risk of breaches by 99%</span>.
+                  </p>
+                </div>
+                <ul className="space-y-3 text-gray-700">
+                  <li className="flex items-start">
+                    <svg className="w-5 h-5 text-purple-500 mt-1 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <span>Integrated the frontend with a backend using SQL and MongoDB for efficient data storage and retrieval.</span>
+                  </li>
+                  <li className="flex items-start">
+                    <svg className="w-5 h-5 text-purple-500 mt-1 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <span>Optimized the system performance, delivering a seamless experience for <span className="font-semibold text-green-600">99% of users</span>.</span>
+                  </li>
+                  <li className="flex items-start">
+                    <svg className="w-5 h-5 text-purple-500 mt-1 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <span>Conducted thorough testing and debugging to ensure smooth functionality across different devices and browsers.</span>
+                  </li>
+                  <li className="flex items-start">
+                    <svg className="w-5 h-5 text-purple-500 mt-1 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <span>Worked with the team to improve data processing speed, making the system <span className="font-semibold text-green-600">30% more efficient and responsive</span>.</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Skills Summary */}
+          <div className="mt-16 bg-white rounded-xl shadow-lg p-8">
+            <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center">Technical Skills</h3>
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="text-center">
+                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                  </svg>
+                </div>
+                <h4 className="font-semibold text-gray-800 mb-2">Frontend</h4>
+                <p className="text-gray-600 text-sm">React, Next.js, JavaScript, TypeScript, Tailwind CSS</p>
+              </div>
+              <div className="text-center">
+                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" />
+                  </svg>
+                </div>
+                <h4 className="font-semibold text-gray-800 mb-2">Backend</h4>
+                <p className="text-gray-600 text-sm">Node.js, Python, FastAPI, SQL, MongoDB</p>
+              </div>
+              <div className="text-center">
+                <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <h4 className="font-semibold text-gray-800 mb-2">Tools & Others</h4>
+                <p className="text-gray-600 text-sm">Git, Testing, Debugging, Performance Optimization</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
