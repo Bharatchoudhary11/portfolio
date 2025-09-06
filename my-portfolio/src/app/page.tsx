@@ -75,7 +75,7 @@ export default function Home() {
             <div className="relative bg-white p-2 rounded-full shadow-2xl transform group-hover:scale-105 transition-transform duration-300">
               <div className="w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center">
                 <Image
-                  src="/profile-photo.jpg"
+                  src="/profile-photo.svg"
                   alt="Bharat Choudhary - Full Stack Developer"
                   width={224}
                   height={224}
@@ -421,6 +421,141 @@ export default function Home() {
                     <span className="text-gray-700"><span className="font-semibold text-green-600">30% efficiency</span> improvement</span>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Achievements Section */}
+      <section className="py-20 px-4 bg-gradient-to-br from-purple-50 to-pink-50">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-4 hover:scale-105 transition-transform duration-300">
+              Achievements & Recognition
+            </h2>
+            <p className="text-xl text-gray-600">
+              Celebrating milestones and accomplishments in my journey
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Hackathon Achievement */}
+            <div className="bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 p-8 border-l-4 border-yellow-500 transform hover:-translate-y-2">
+              <div className="flex items-center mb-6">
+                <div className="w-16 h-16 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center mr-4">
+                  <span className="text-2xl">🏆</span>
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-gray-800">Hackathon Winner</h3>
+                  <p className="text-yellow-600 font-semibold">Auto visionX by Bosch</p>
+                </div>
+              </div>
+              <p className="text-gray-700 leading-relaxed mb-4">
+                Secured <span className="font-bold text-yellow-600">1st runner-up position</span> in the prestigious Auto visionX hackathon conducted by Bosch, showcasing innovative solutions in automotive technology.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                <span className="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm font-semibold">Innovation</span>
+                <span className="px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-sm font-semibold">Automotive Tech</span>
+                <span className="px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm font-semibold">Bosch</span>
+              </div>
+            </div>
+
+            {/* Scholarship Achievement */}
+            <div className="bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 p-8 border-l-4 border-green-500 transform hover:-translate-y-2">
+              <div className="flex items-center mb-6">
+                <div className="w-16 h-16 bg-gradient-to-r from-green-400 to-teal-500 rounded-full flex items-center justify-center mr-4">
+                  <span className="text-2xl">🎓</span>
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-gray-800">Scholarship Awardee</h3>
+                  <p className="text-green-600 font-semibold">AWES ESSA Scholarship</p>
+                </div>
+              </div>
+              <p className="text-gray-700 leading-relaxed mb-4">
+                Recipient of the prestigious <span className="font-bold text-green-600">AWES ESSA Scholarship</span>, recognizing academic excellence and potential in software engineering.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                <span className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-semibold">Academic Excellence</span>
+                <span className="px-3 py-1 bg-teal-100 text-teal-800 rounded-full text-sm font-semibold">Merit-Based</span>
+                <span className="px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-sm font-semibold">Recognition</span>
+              </div>
+            </div>
+
+            {/* Event Organization */}
+            <div className="bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 p-8 border-l-4 border-blue-500 transform hover:-translate-y-2">
+              <div className="flex items-center mb-6">
+                <div className="w-16 h-16 bg-gradient-to-r from-blue-400 to-indigo-500 rounded-full flex items-center justify-center mr-4">
+                  <span className="text-2xl">🎯</span>
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-gray-800">Event Organizer</h3>
+                  <p className="text-blue-600 font-semibold">Technical Aakarti</p>
+                </div>
+              </div>
+              <p className="text-gray-700 leading-relaxed mb-4">
+                Organized college's biggest <span className="font-bold text-blue-600">inter-college technical event "Technical Aakarti"</span>, demonstrating leadership and event management skills.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold">Leadership</span>
+                <span className="px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full text-sm font-semibold">Event Management</span>
+                <span className="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm font-semibold">Technical Events</span>
+              </div>
+            </div>
+
+            {/* Coding Achievement */}
+            <div className="bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 p-8 border-l-4 border-purple-500 transform hover:-translate-y-2">
+              <div className="flex items-center mb-6">
+                <div className="w-16 h-16 bg-gradient-to-r from-purple-400 to-pink-500 rounded-full flex items-center justify-center mr-4">
+                  <span className="text-2xl">💻</span>
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-gray-800">Coding Excellence</h3>
+                  <p className="text-purple-600 font-semibold">1000+ Problems Solved</p>
+                </div>
+              </div>
+              <p className="text-gray-700 leading-relaxed mb-4">
+                Solved <span className="font-bold text-purple-600">1000+ problems</span> across various coding platforms, demonstrating consistent practice and problem-solving skills.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                <span className="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm font-semibold">Problem Solving</span>
+                <span className="px-3 py-1 bg-pink-100 text-pink-800 rounded-full text-sm font-semibold">Consistency</span>
+                <span className="px-3 py-1 bg-violet-100 text-violet-800 rounded-full text-sm font-semibold">Multiple Platforms</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Achievement Stats */}
+          <div className="mt-16 bg-white rounded-2xl shadow-lg p-8">
+            <h3 className="text-2xl font-bold text-gray-800 mb-8 text-center">Achievement Highlights</h3>
+            <div className="grid md:grid-cols-4 gap-6">
+              <div className="text-center">
+                <div className="w-16 h-16 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl">🥈</span>
+                </div>
+                <div className="text-3xl font-bold text-yellow-600 mb-2">1st Runner-up</div>
+                <div className="text-sm text-gray-600">Bosch Hackathon</div>
+              </div>
+              <div className="text-center">
+                <div className="w-16 h-16 bg-gradient-to-r from-green-400 to-teal-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl">🎓</span>
+                </div>
+                <div className="text-3xl font-bold text-green-600 mb-2">Scholarship</div>
+                <div className="text-sm text-gray-600">AWES ESSA Award</div>
+              </div>
+              <div className="text-center">
+                <div className="w-16 h-16 bg-gradient-to-r from-blue-400 to-indigo-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl">🎯</span>
+                </div>
+                <div className="text-3xl font-bold text-blue-600 mb-2">Biggest Event</div>
+                <div className="text-sm text-gray-600">Technical Aakarti</div>
+              </div>
+              <div className="text-center">
+                <div className="w-16 h-16 bg-gradient-to-r from-purple-400 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl">1000+</span>
+                </div>
+                <div className="text-3xl font-bold text-purple-600 mb-2">Problems</div>
+                <div className="text-sm text-gray-600">Coding Platforms</div>
               </div>
             </div>
           </div>
