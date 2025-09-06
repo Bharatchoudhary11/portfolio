@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 type ShapeName = "square" | "circle" | "triangle" | "diamond" | "hexagon" | "star";
 
@@ -18,10 +18,12 @@ interface Shape {
 }
 
 export default function AnimatedBackground() {
-  const [mouse, setMouse] = useState({ x: 0, y: 0 });
   const shapes = useRef<Shape[]>([]);
   const els = useRef<(HTMLDivElement | null)[]>([]);
   const rafRef = useRef<number | null>(null);
+  const followerEl = useRef<HTMLDivElement | null>(null);
+  const mouseTarget = useRef({ x: 0, y: 0 });
+  const followerPos = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
     const palette = [
@@ -53,7 +55,13 @@ export default function AnimatedBackground() {
     });
     shapes.current = arr;
 
-    const onMove = (e: MouseEvent) => setMouse({ x: e.clientX, y: e.clientY });
+    // Initialize follower in center
+    followerPos.current = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    mouseTarget.current = followerPos.current;
+
+    const onMove = (e: MouseEvent) => {
+      mouseTarget.current = { x: e.clientX, y: e.clientY };
+    };
     window.addEventListener("mousemove", onMove);
     return () => window.removeEventListener("mousemove", onMove);
   }, []);
@@ -133,6 +141,18 @@ export default function AnimatedBackground() {
         el.style.transform = `translate(-50%, -50%) rotate(${s.rotation}deg)`;
       }
 
+      // Update mouse follower with fast smoothing
+      const fEl = followerEl.current;
+      if (fEl) {
+        const target = mouseTarget.current;
+        const pos = followerPos.current;
+        const alpha = 0.5; // responsiveness (closer to 1 = snappier)
+        pos.x += (target.x - pos.x) * alpha;
+        pos.y += (target.y - pos.y) * alpha;
+        fEl.style.left = `${pos.x - 128}px`;
+        fEl.style.top = `${pos.y - 128}px`;
+      }
+
       rafRef.current = requestAnimationFrame(step);
     };
     rafRef.current = requestAnimationFrame(step);
@@ -177,10 +197,11 @@ export default function AnimatedBackground() {
         </div>
       ))}
 
-      {/* Mouse follower */}
+      {/* Mouse follower (fast, no lag) */}
       <div
+        ref={followerEl}
         className="absolute w-64 h-64 rounded-full bg-gradient-to-r from-blue-100 to-purple-100 opacity-20 blur-3xl pointer-events-none"
-        style={{ left: mouse.x - 128, top: mouse.y - 128, transition: "all 0.3s ease-out" }}
+        style={{ left: 0, top: 0, willChange: "left, top" }}
       />
 
       {/* Gradient Orbs */}
@@ -201,4 +222,3 @@ export default function AnimatedBackground() {
     </div>
   );
 }
-

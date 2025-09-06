@@ -40,12 +40,12 @@ export default function ProjectsPage() {
 
   return (
     <div className="max-w-2xl mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Projects</h1>
+      <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white mb-4">Projects</h1>
       <ul className="space-y-4">
         {projects.map((p) => (
-          <li key={p._id} className="border p-4 rounded">
-            <h2 className="font-semibold">{p.title}</h2>
-            <p>{p.description}</p>
+          <li key={p._id} className="border border-slate-200 dark:border-white/10 p-4 rounded bg-white/80 dark:bg-white/5">
+            <h2 className="font-semibold text-slate-900 dark:text-white">{p.title}</h2>
+            <p className="text-slate-600 dark:text-slate-300">{p.description}</p>
           </li>
         ))}
       </ul>
