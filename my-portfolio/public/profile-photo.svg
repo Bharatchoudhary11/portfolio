@@ -1,0 +1,61 @@
+<svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#EFF6FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F3E8FF;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="skin" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FED7AA;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FDBA74;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="hair" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1F2937;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#374151;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="shirt" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#7C2D12;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#991B1B;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="400" fill="url(#bg)" rx="200"/>
+  
+  <!-- Professional Headshot Placeholder -->
+  <!-- Hair -->
+  <ellipse cx="200" cy="160" rx="80" ry="60" fill="url(#hair)"/>
+  
+  <!-- Face -->
+  <ellipse cx="200" cy="200" rx="70" ry="85" fill="url(#skin)"/>
+  
+  <!-- Eyes -->
+  <circle cx="180" cy="180" r="8" fill="#1F2937"/>
+  <circle cx="220" cy="180" r="8" fill="#1F2937"/>
+  <circle cx="180" cy="180" r="3" fill="#FFFFFF"/>
+  <circle cx="220" cy="180" r="3" fill="#FFFFFF"/>
+  
+  <!-- Eyebrows -->
+  <path d="M165 165 Q180 160 195 165" stroke="#1F2937" stroke-width="3" fill="none"/>
+  <path d="M205 165 Q220 160 235 165" stroke="#1F2937" stroke-width="3" fill="none"/>
+  
+  <!-- Nose -->
+  <ellipse cx="200" cy="200" rx="4" ry="12" fill="#FBBF24" opacity="0.3"/>
+  
+  <!-- Mouth -->
+  <path d="M185 220 Q200 230 215 220" stroke="#DC2626" stroke-width="2" fill="none"/>
+  
+  <!-- Mustache -->
+  <path d="M185 210 Q200 215 215 210" stroke="#1F2937" stroke-width="2" fill="none"/>
+  
+  <!-- Shirt/Blazer -->
+  <path d="M130 280 Q200 260 270 280 L270 350 Q200 330 130 350 Z" fill="url(#shirt)"/>
+  
+  <!-- Glasses -->
+  <circle cx="180" cy="180" r="25" stroke="#1F2937" stroke-width="2" fill="none" opacity="0.7"/>
+  <circle cx="220" cy="180" r="25" stroke="#1F2937" stroke-width="2" fill="none" opacity="0.7"/>
+  <line x1="205" y1="180" x2="195" y2="180" stroke="#1F2937" stroke-width="2" opacity="0.7"/>
+  
+  <!-- Professional Badge -->
+  <circle cx="200" cy="320" r="15" fill="url(#hair)" opacity="0.8"/>
+  <text x="200" y="325" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#FFFFFF">BC</text>
+</svg>

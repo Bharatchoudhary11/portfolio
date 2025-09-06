@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 
 export default function Home() {
@@ -43,14 +44,18 @@ export default function Home() {
   ];
 
   const skills = [
-    { name: "React", level: 90 },
-    { name: "Next.js", level: 85 },
     { name: "JavaScript", level: 95 },
-    { name: "TypeScript", level: 80 },
-    { name: "Node.js", level: 75 },
-    { name: "Python", level: 70 },
+    { name: "React.js", level: 90 },
+    { name: "Python", level: 85 },
+    { name: "C++", level: 80 },
     { name: "MongoDB", level: 85 },
-    { name: "SQL", level: 80 }
+    { name: "PostgreSQL", level: 80 },
+    { name: "Node.js", level: 75 },
+    { name: "HTML/CSS", level: 90 },
+    { name: "Git", level: 85 },
+    { name: "AWS", level: 70 },
+    { name: "Docker", level: 75 },
+    { name: "Figma", level: 80 }
   ];
   return (
     <main className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
@@ -63,14 +68,53 @@ export default function Home() {
           <div className="absolute top-40 left-40 w-80 h-80 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
         </div>
 
-        <div className={`text-center space-y-4 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <h1 className="text-6xl md:text-7xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent hover:scale-105 transition-transform duration-300 cursor-default">
-            Bharat Choudhary
-          </h1>
-          <p className="text-2xl text-gray-700 font-medium tracking-wide">
-            Full Stack Developer & Software Engineer
-          </p>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full hover:w-32 transition-all duration-300"></div>
+        <div className={`flex flex-col lg:flex-row items-center justify-center space-y-8 lg:space-y-0 lg:space-x-12 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          {/* Profile Photo */}
+          <div className="relative group">
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full blur-lg opacity-75 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="relative bg-white p-2 rounded-full shadow-2xl transform group-hover:scale-105 transition-transform duration-300">
+              <div className="w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center">
+                <Image
+                  src="/profile-photo.jpg"
+                  alt="Bharat Choudhary - Full Stack Developer"
+                  width={224}
+                  height={224}
+                  className="w-full h-full object-cover rounded-full"
+                  priority
+                />
+              </div>
+            </div>
+            {/* Floating elements around photo */}
+            <div className="absolute -top-4 -right-4 w-8 h-8 bg-blue-500 rounded-full animate-bounce opacity-70"></div>
+            <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-purple-500 rounded-full animate-bounce opacity-70 [animation-delay:0.5s]"></div>
+          </div>
+
+          {/* Text Content */}
+          <div className="text-center lg:text-left space-y-4">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent hover:scale-105 transition-transform duration-300 cursor-default">
+              Bharat Choudhary
+            </h1>
+            <p className="text-xl md:text-2xl text-gray-700 font-medium tracking-wide">
+              Full Stack Developer & Software Engineer
+            </p>
+            <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto lg:mx-0 rounded-full hover:w-32 transition-all duration-300"></div>
+            
+            {/* Quick Stats */}
+            <div className="flex flex-wrap justify-center lg:justify-start gap-6 mt-6">
+              <div className="text-center">
+                <div className="text-2xl font-bold text-blue-600">2+</div>
+                <div className="text-sm text-gray-600">Years Experience</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-purple-600">10+</div>
+                <div className="text-sm text-gray-600">Projects</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-indigo-600">99%</div>
+                <div className="text-sm text-gray-600">User Satisfaction</div>
+              </div>
+            </div>
+          </div>
         </div>
         
         <div className={`flex flex-col sm:flex-row gap-4 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
@@ -182,21 +226,110 @@ export default function Home() {
           {/* Skills Progress Bars */}
           <div className="mt-16 bg-white rounded-2xl shadow-lg p-8">
             <h3 className="text-2xl font-bold text-gray-800 mb-8 text-center">Technical Skills</h3>
-            <div className="space-y-4">
-              {skills.map((skill, index) => (
-                <div key={index} className="group">
+            
+            {/* Core Skills */}
+            <div className="mb-8">
+              <h4 className="text-lg font-semibold text-blue-600 mb-4 flex items-center">
+                <span className="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
+                Core Skills
+              </h4>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="group">
                   <div className="flex justify-between items-center mb-2">
-                    <span className="font-semibold text-gray-700">{skill.name}</span>
-                    <span className="text-sm text-gray-500">{skill.level}%</span>
+                    <span className="font-semibold text-gray-700">Object-Oriented Programming</span>
+                    <span className="text-sm text-gray-500">90%</span>
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
-                    <div 
-                      className="h-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full transition-all duration-1000 ease-out group-hover:shadow-lg"
-                      style={{ width: `${skill.level}%` }}
-                    ></div>
+                    <div className="h-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full transition-all duration-1000 ease-out group-hover:shadow-lg" style={{ width: '90%' }}></div>
                   </div>
                 </div>
-              ))}
+                <div className="group">
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="font-semibold text-gray-700">Data Structures</span>
+                    <span className="text-sm text-gray-500">85%</span>
+                  </div>
+                  <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+                    <div className="h-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full transition-all duration-1000 ease-out group-hover:shadow-lg" style={{ width: '85%' }}></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Professional Skills */}
+            <div className="mb-8">
+              <h4 className="text-lg font-semibold text-purple-600 mb-4 flex items-center">
+                <span className="w-2 h-2 bg-purple-500 rounded-full mr-2"></span>
+                Professional Skills
+              </h4>
+              <div className="space-y-4">
+                {skills.slice(0, 8).map((skill, index) => (
+                  <div key={index} className="group">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="font-semibold text-gray-700">{skill.name}</span>
+                      <span className="text-sm text-gray-500">{skill.level}%</span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+                      <div 
+                        className="h-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full transition-all duration-1000 ease-out group-hover:shadow-lg"
+                        style={{ width: `${skill.level}%` }}
+                      ></div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* UI/UX & Tools */}
+            <div className="grid md:grid-cols-2 gap-8">
+              <div>
+                <h4 className="text-lg font-semibold text-green-600 mb-4 flex items-center">
+                  <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
+                  UI/UX Design
+                </h4>
+                <div className="space-y-3">
+                  <div className="group">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="font-semibold text-gray-700">Figma</span>
+                      <span className="text-sm text-gray-500">80%</span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+                      <div className="h-3 bg-gradient-to-r from-green-500 to-teal-500 rounded-full transition-all duration-1000 ease-out group-hover:shadow-lg" style={{ width: '80%' }}></div>
+                    </div>
+                  </div>
+                  <div className="group">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="font-semibold text-gray-700">Adobe InDesign</span>
+                      <span className="text-sm text-gray-500">75%</span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+                      <div className="h-3 bg-gradient-to-r from-green-500 to-teal-500 rounded-full transition-all duration-1000 ease-out group-hover:shadow-lg" style={{ width: '75%' }}></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h4 className="text-lg font-semibold text-orange-600 mb-4 flex items-center">
+                  <span className="w-2 h-2 bg-orange-500 rounded-full mr-2"></span>
+                  Tools & Technologies
+                </h4>
+                <div className="space-y-3">
+                  {skills.slice(8).map((skill, index) => (
+                    <div key={index} className="group">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="font-semibold text-gray-700">{skill.name}</span>
+                        <span className="text-sm text-gray-500">{skill.level}%</span>
+                      </div>
+                      <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+                        <div 
+                          className="h-3 bg-gradient-to-r from-orange-500 to-red-500 rounded-full transition-all duration-1000 ease-out group-hover:shadow-lg"
+                          style={{ width: `${skill.level}%` }}
+                        ></div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>
