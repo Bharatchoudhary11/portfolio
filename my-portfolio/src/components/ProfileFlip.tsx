@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface Props {
   frontSrc: string; // shown initially
@@ -25,6 +25,11 @@ export default function ProfileFlip({
   const [flipped, setFlipped] = useState(false);
   const [frontSrcState, setFrontSrcState] = useState(frontSrc);
   const [backSrcState, setBackSrcState] = useState(backSrc);
+  const innerRef = useRef<HTMLDivElement | null>(null);
+  const tiltTarget = useRef({ x: 0, y: 0 });
+  const tilt = useRef({ x: 0, y: 0 });
+  const raf = useRef<number | null>(null);
+  const pressTimer = useRef<number | null>(null);
 
   useEffect(() => {
     // restore last state if any
@@ -36,17 +41,77 @@ export default function ProfileFlip({
     localStorage.setItem("profileFlip", flipped ? "back" : "front");
   }, [flipped]);
 
+  // RAF loop to lerp tilt smoothly
+  useEffect(() => {
+    const step = () => {
+      const el = innerRef.current;
+      if (el) {
+        // ease towards target
+        tilt.current.x += (tiltTarget.current.x - tilt.current.x) * 0.15;
+        tilt.current.y += (tiltTarget.current.y - tilt.current.y) * 0.15;
+        const flip = flipped ? " rotateY(180deg)" : " rotateY(0deg)";
+        el.style.transform = `rotateX(${tilt.current.y}deg) rotateY(${tilt.current.x}deg)` + flip;
+      }
+      raf.current = requestAnimationFrame(step);
+    };
+    raf.current = requestAnimationFrame(step);
+    return () => {
+      if (raf.current) cancelAnimationFrame(raf.current);
+    };
+  }, [flipped]);
+
+  const onMove: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    const rect = (e.currentTarget as HTMLButtonElement).getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const dx = (e.clientX - cx) / (rect.width / 2);
+    const dy = (e.clientY - cy) / (rect.height / 2);
+    const max = 12; // deg
+    tiltTarget.current = { x: dx * max, y: -dy * max };
+  };
+
+  const onLeave = () => {
+    tiltTarget.current = { x: 0, y: 0 };
+  };
+
+  const onKeyDown: React.KeyboardEventHandler<HTMLButtonElement> = (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      setFlipped((f) => !f);
+    }
+  };
+
+  const onPointerDown: React.PointerEventHandler<HTMLButtonElement> = () => {
+    // long-press to flip on touch
+    pressTimer.current = window.setTimeout(() => setFlipped((f) => !f), 350);
+  };
+  const clearPress = () => {
+    if (pressTimer.current) {
+      clearTimeout(pressTimer.current);
+      pressTimer.current = null;
+    }
+  };
+
   return (
     <button
       type="button"
       aria-label="Flip profile image"
       onClick={() => setFlipped((f) => !f)}
+      onMouseMove={onMove}
+      onMouseLeave={onLeave}
+      onKeyDown={onKeyDown}
+      onPointerDown={onPointerDown}
+      onPointerUp={clearPress}
+      onPointerCancel={clearPress}
       className="relative group focus:outline-none focus:ring-2 focus:ring-slate-900 dark:focus:ring-white rounded-full"
       style={{ width: size, height: size, perspective: 1000 }}
     >
+      {/* Animated halo */}
+      <div className="absolute -inset-[3px] rounded-full bg-[conic-gradient(var(--tw-gradient-stops))] from-indigo-400 via-fuchsia-400 to-sky-400 opacity-40 blur-[2px] animate-spin-slower" aria-hidden />
+
       <div
-        className="relative w-full h-full rounded-full transition-transform duration-500 [transform-style:preserve-3d] group-hover:scale-105"
-        style={{ transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)" }}
+        ref={innerRef}
+        className="relative w-full h-full rounded-full will-change-transform [transform-style:preserve-3d] group-hover:scale-105 transition-transform duration-300"
       >
         {/* Front */}
         <div className="absolute inset-0 rounded-full overflow-hidden border border-white/60 dark:border-white/10 shadow-md [backface-visibility:hidden]">
