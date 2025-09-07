@@ -18,8 +18,7 @@
     </linearGradient>
   </defs>
   
-  <!-- Background -->
-  <rect width="400" height="400" fill="url(#bg)" rx="200"/>
+  <!-- Background removed for transparency -->
   
   <!-- Professional Headshot Placeholder -->
   <!-- Hair -->

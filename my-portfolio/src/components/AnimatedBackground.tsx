@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type ShapeName = "square" | "circle" | "triangle" | "diamond" | "hexagon" | "star";
 
@@ -24,6 +24,8 @@ export default function AnimatedBackground() {
   const followerEl = useRef<HTMLDivElement | null>(null);
   const mouseTarget = useRef({ x: 0, y: 0 });
   const followerPos = useRef({ x: 0, y: 0 });
+  // trigger initial render once shapes are created
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     const palette = [
@@ -34,19 +36,19 @@ export default function AnimatedBackground() {
       "#ffe4e6", // rose-100
     ];
     const shapeNames: ShapeName[] = ["square", "circle", "triangle", "diamond", "hexagon", "star"];
-    const count = 24; // global density
+    const count = 28; // a bit denser
     const arr: Shape[] = Array.from({ length: count }, () => {
       const s = shapeNames[Math.floor(Math.random() * shapeNames.length)];
       const baseSize = 14 + Math.random() * 34; // 14-48
       const size = s === "star" ? baseSize * 1.15 : baseSize;
-      const speed = 0.15 + Math.random() * 0.6;
+      const speed = 0.3 + Math.random() * 0.9; // faster drift
       return {
         x: Math.random() * window.innerWidth,
         y: Math.random() * window.innerHeight,
         vx: (Math.random() - 0.5) * speed,
         vy: (Math.random() - 0.5) * speed,
         size,
-        opacity: Math.random() * 0.35 + 0.1,
+        opacity: Math.random() * 0.35 + 0.25, // more visible
         rotation: Math.random() * 360,
         vr: (Math.random() - 0.5) * 0.5,
         color: palette[Math.floor(Math.random() * palette.length)],
@@ -54,6 +56,8 @@ export default function AnimatedBackground() {
       };
     });
     shapes.current = arr;
+    // ensure elements are created on first render
+    setReady(true);
 
     // Initialize follower in center
     followerPos.current = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
@@ -72,8 +76,8 @@ export default function AnimatedBackground() {
       const h = window.innerHeight;
       const arr = shapes.current;
       const n = arr.length;
-      const maxSpeed = 0.9;
-      const minSpeed = 0.05;
+      const maxSpeed = 1.2;
+      const minSpeed = 0.08;
 
       // integrate
       for (let i = 0; i < n; i++) {
@@ -163,11 +167,11 @@ export default function AnimatedBackground() {
 
   return (
     <div className="fixed inset-0 pointer-events-none z-0" style={{ transform: "translateZ(0)" }}>
-      {shapes.current.map((s, i) => (
+      {ready && shapes.current.map((s, i) => (
         <div
           key={i}
           ref={(el) => (els.current[i] = el)}
-          className="absolute shadow-sm mix-blend-multiply dark:mix-blend-screen"
+          className="absolute"
           style={{
             left: s.x,
             top: s.y,
@@ -175,25 +179,23 @@ export default function AnimatedBackground() {
             height: s.size,
             opacity: s.opacity,
             color: s.color,
-            backgroundColor: s.shape === "square" ? s.color : "transparent",
+            backgroundColor: "transparent",
             transform: `translate(-50%, -50%) rotate(${s.rotation}deg)`,
-            borderRadius: s.shape === "square" ? 4 : 0,
-            boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
+            borderRadius: 0,
             willChange: "transform, left, top",
           }}
           aria-hidden
         >
-          {s.shape !== "square" && (
-            <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none" fill="currentColor">
-              {s.shape === "circle" && <circle cx="50" cy="50" r="45" />}
-              {s.shape === "triangle" && <polygon points="50,5 95,95 5,95" />}
-              {s.shape === "diamond" && <polygon points="50,2 98,50 50,98 2,50" />}
-              {s.shape === "hexagon" && <polygon points="50,3 93,28 93,72 50,97 7,72 7,28" />}
-              {s.shape === "star" && (
-                <polygon points="50,5 61,38 96,38 68,58 79,91 50,72 21,91 32,58 4,38 39,38" />
-              )}
-            </svg>
-          )}
+          <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none" fill="currentColor" style={{ display: "block" }}>
+            {s.shape === "square" && <rect x="8" y="8" width="84" height="84" rx="6" ry="6" />}
+            {s.shape === "circle" && <circle cx="50" cy="50" r="45" />}
+            {s.shape === "triangle" && <polygon points="50,5 95,95 5,95" />}
+            {s.shape === "diamond" && <polygon points="50,2 98,50 50,98 2,50" />}
+            {s.shape === "hexagon" && <polygon points="50,3 93,28 93,72 50,97 7,72 7,28" />}
+            {s.shape === "star" && (
+              <polygon points="50,5 61,38 96,38 68,58 79,91 50,72 21,91 32,58 4,38 39,38" />
+            )}
+          </svg>
         </div>
       ))}
 

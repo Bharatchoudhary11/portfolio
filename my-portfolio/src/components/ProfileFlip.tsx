@@ -47,8 +47,9 @@ export default function ProfileFlip({
       const el = innerRef.current;
       if (el) {
         // ease towards target
-        tilt.current.x += (tiltTarget.current.x - tilt.current.x) * 0.15;
-        tilt.current.y += (tiltTarget.current.y - tilt.current.y) * 0.15;
+        // slightly faster response for snappier feel
+        tilt.current.x += (tiltTarget.current.x - tilt.current.x) * 0.25;
+        tilt.current.y += (tiltTarget.current.y - tilt.current.y) * 0.25;
         const flip = flipped ? " rotateY(180deg)" : " rotateY(0deg)";
         el.style.transform = `rotateX(${tilt.current.y}deg) rotateY(${tilt.current.x}deg)` + flip;
       }
@@ -106,12 +107,21 @@ export default function ProfileFlip({
       className="relative group focus:outline-none focus:ring-2 focus:ring-slate-900 dark:focus:ring-white rounded-full"
       style={{ width: size, height: size, perspective: 1000 }}
     >
-      {/* Animated halo */}
-      <div className="absolute -inset-[3px] rounded-full bg-[conic-gradient(var(--tw-gradient-stops))] from-indigo-400 via-fuchsia-400 to-sky-400 opacity-40 blur-[2px] animate-spin-slower" aria-hidden />
+      {/* Matching gradient halo (aligned with page background) */}
+      <div
+        className="absolute -inset-[3px] rounded-full bg-gradient-to-br from-indigo-50 via-sky-50 to-rose-50 dark:from-slate-950 dark:via-indigo-950 dark:to-fuchsia-950 opacity-60 blur-[2px] animate-spin-slower"
+        aria-hidden
+      />
+
+      {/* Soft gradient plate behind image to blend with background */}
+      <div
+        className="absolute inset-0 rounded-full bg-gradient-to-br from-indigo-50 via-sky-50 to-rose-50 dark:from-slate-950 dark:via-indigo-950 dark:to-fuchsia-950 opacity-70"
+        aria-hidden
+      />
 
       <div
         ref={innerRef}
-        className="relative w-full h-full rounded-full will-change-transform [transform-style:preserve-3d] group-hover:scale-105 transition-transform duration-300"
+        className="relative w-full h-full rounded-full will-change-transform [transform-style:preserve-3d] group-hover:scale-105 transition-transform duration-200 ease-out"
       >
         {/* Front */}
         <div className="absolute inset-0 rounded-full overflow-hidden border border-white/60 dark:border-white/10 shadow-md [backface-visibility:hidden]">
