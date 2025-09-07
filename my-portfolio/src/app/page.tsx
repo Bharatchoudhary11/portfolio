@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import ProfileFlip from "@/components/ProfileFlip";
 import { useState, useEffect } from "react";
 
 export default function Home() {
@@ -81,14 +82,13 @@ export default function Home() {
         <div className="max-w-4xl mx-auto">
           <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             <div className="text-center mb-12">
-              <div className="w-32 h-32 mx-auto mb-8 rounded-full overflow-hidden bg-gray-100">
-                <Image
-                  src="/profile-photo.svg"
-                  alt="Bharat Choudhary"
-                  width={128}
-                  height={128}
-                  className="w-full h-full object-cover"
-                  priority
+              <div className="w-32 h-32 mx-auto mb-8 rounded-full">
+                <ProfileFlip
+                  frontSrc="/portfoliopic.svg"
+                  backSrc="/profile-photo.jpg"
+                  altFront="Profile photo"
+                  altBack="Alternate profile photo"
+                  size={128}
                 />
               </div>
               <h1 className="text-5xl md:text-6xl font-bold text-slate-900 dark:text-white tracking-tight mb-4">

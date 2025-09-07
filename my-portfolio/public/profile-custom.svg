@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="45%" r="75%">
+      <stop offset="0%" stop-color="#eef2ff"/>
+      <stop offset="100%" stop-color="#e0e7ff"/>
+    </radialGradient>
+    <clipPath id="clipCircle">
+      <circle cx="64" cy="64" r="62"/>
+    </clipPath>
+  </defs>
+  <rect width="128" height="128" fill="url(#bg)"/>
+  <!-- Replace profile-custom.jpg with your provided photo in public/ -->
+  <g clip-path="url(#clipCircle)">
+    <image href="/profile-custom.jpg" x="0" y="0" width="128" height="128" preserveAspectRatio="xMidYMid slice"/>
+  </g>
+  <circle cx="64" cy="64" r="62" fill="none" stroke="#ffffff" opacity="0.6"/>
+</svg>
+
