@@ -196,7 +196,7 @@ export default function Home() {
       <section id="projects" className="py-16 px-6">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-12 text-center">Featured Projects</h2>
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 gap-8">
             {projects.map((project, index) => (
               <div key={index} className="bg-white/80 dark:bg-white/5 rounded-lg border border-slate-200 dark:border-white/10 overflow-hidden hover:shadow-lg hover:scale-105 transition-all duration-300 backdrop-blur-sm">
                 <div className="h-48 bg-slate-50 dark:bg-white/5 flex items-center justify-center">
