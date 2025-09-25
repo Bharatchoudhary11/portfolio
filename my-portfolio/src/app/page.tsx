@@ -229,14 +229,14 @@ export default function Home() {
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-12 text-center">Featured Projects</h2>
           <div className="relative">
-            <div className="space-y-[60vh]">
+            <div className="space-y-16 md:space-y-24 lg:space-y-32">
               {projects.map((project, index) => (
                 <div
                   key={index}
                   ref={(el) => {
                     projectRefs.current[index] = el;
                   }}
-                  className="h-[120vh]"
+                  className="min-h-[60vh] md:min-h-[65vh] lg:min-h-[70vh]"
                 >
                   <article
                     className={`sticky top-32 mx-auto max-w-4xl bg-white/80 dark:bg-white/5 rounded-lg border border-slate-200 dark:border-white/10 overflow-hidden transition-all duration-500 backdrop-blur-sm ${
