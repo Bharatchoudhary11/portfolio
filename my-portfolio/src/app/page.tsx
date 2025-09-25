@@ -2,14 +2,42 @@
 
 import Image from "next/image";
 import ProfileFlip from "@/components/ProfileFlip";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export default function Home() {
   const [isVisible, setIsVisible] = useState(false);
+  const [activeProject, setActiveProject] = useState(0);
+  const projectRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
+
+  useEffect(() => {
+    const observers: IntersectionObserver[] = [];
+
+    projectRefs.current.forEach((ref, index) => {
+      if (!ref) return;
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setActiveProject(index);
+          }
+        },
+        {
+          threshold: 0.6
+        }
+      );
+
+      observer.observe(ref);
+      observers.push(observer);
+    });
+
+    return () => {
+      observers.forEach((observer) => observer.disconnect());
+    };
+  }, [projects.length]);
 
   const projects = [
     {
@@ -196,46 +224,85 @@ export default function Home() {
       <section id="projects" className="py-16 px-6">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-12 text-center">Featured Projects</h2>
-          <div className="grid grid-cols-1 gap-8">
-            {projects.map((project, index) => (
-              <div key={index} className="bg-white/80 dark:bg-white/5 rounded-lg border border-slate-200 dark:border-white/10 overflow-hidden hover:shadow-lg hover:scale-105 transition-all duration-300 backdrop-blur-sm">
-                <div className="h-48 bg-slate-50 dark:bg-white/5 flex items-center justify-center">
-                  <div className="text-4xl text-slate-400">📱</div>
+          <div className="relative">
+            <div className="space-y-[60vh]">
+              {projects.map((project, index) => (
+                <div
+                  key={index}
+                  ref={(el) => {
+                    projectRefs.current[index] = el;
+                  }}
+                  className="h-[120vh]"
+                >
+                  <article
+                    className={`sticky top-32 mx-auto max-w-4xl bg-white/80 dark:bg-white/5 rounded-lg border border-slate-200 dark:border-white/10 overflow-hidden transition-all duration-500 backdrop-blur-sm ${
+                      activeProject === index
+                        ? "opacity-100 scale-100 shadow-xl"
+                        : "opacity-40 scale-95"
+                    }`}
+                  >
+                    <div className="h-48 bg-slate-50 dark:bg-white/5 flex items-center justify-center">
+                      <div className="text-4xl text-slate-400">📱</div>
+                    </div>
+                    <div className="p-6">
+                      <div className="flex items-center justify-between mb-4">
+                        <span className="text-sm font-medium uppercase tracking-widest text-slate-400 dark:text-slate-500">
+                          Project {index + 1} of {projects.length}
+                        </span>
+                        <div className="flex gap-2">
+                          {projects.map((_, indicatorIndex) => (
+                            <span
+                              key={indicatorIndex}
+                              className={`h-1.5 w-8 rounded-full transition-colors ${
+                                activeProject === indicatorIndex
+                                  ? "bg-slate-900 dark:bg-white"
+                                  : "bg-slate-200 dark:bg-white/20"
+                              }`}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                      <h3 className="text-2xl font-semibold text-slate-900 dark:text-white mb-3">{project.title}</h3>
+                      <p className="text-slate-600 dark:text-slate-300 mb-5 leading-relaxed">{project.description}</p>
+                      <div className="flex flex-wrap gap-2 mb-5">
+                        {project.tech.map((tech, techIndex) => (
+                          <span
+                            key={techIndex}
+                            className="px-3 py-1 bg-slate-100/80 dark:bg-white/10 text-slate-700 dark:text-slate-200 rounded-full text-sm"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                      <div className="flex flex-wrap gap-4">
+                        <a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
+                        >
+                          <span>GitHub</span>
+                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M12.293 2.293a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L14 5.414V17a1 1 0 11-2 0V5.414L9.707 7.707A1 1 0 018.293 6.293l4-4z" />
+                          </svg>
+                        </a>
+                        <a
+                          href={project.live}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
+                        >
+                          <span>Live Demo</span>
+                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M12.293 2.293a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L14 5.414V17a1 1 0 11-2 0V5.414L9.707 7.707A1 1 0 018.293 6.293l4-4z" />
+                          </svg>
+                        </a>
+                      </div>
+                    </div>
+                  </article>
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">{project.title}</h3>
-                  <p className="text-slate-600 dark:text-slate-300 mb-4">{project.description}</p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.tech.map((tech, techIndex) => (
-                      <span 
-                        key={techIndex}
-                        className="px-2 py-1 bg-slate-100/80 dark:bg-white/10 text-slate-700 dark:text-slate-200 rounded text-sm"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                  <div className="flex space-x-4">
-                    <a
-                      href={project.github} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
-                    >
-                      GitHub
-                    </a>
-                    <a
-                      href={project.live} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
-                    >
-                      Live Demo
-                    </a>
-                  </div>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
