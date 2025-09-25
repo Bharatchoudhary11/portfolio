@@ -4,6 +4,45 @@ import Image from "next/image";
 import ProfileFlip from "@/components/ProfileFlip";
 import { useState, useEffect, useRef } from "react";
 
+const projects = [
+  {
+    title: "E-Commerce Platform",
+    description:
+      "A full-stack e-commerce solution built with Next.js, MongoDB, and Stripe integration.",
+    tech: ["Next.js", "MongoDB", "Stripe"],
+    image: "/project1.jpg",
+    github: "https://github.com/bharatchoudhary11/ecommerce",
+    live: "https://ecommerce-demo.com"
+  },
+  {
+    title: "Task Management App",
+    description:
+      "A collaborative task management application with real-time updates and team collaboration features.",
+    tech: ["React", "Node.js", "Socket.io"],
+    image: "/project2.jpg",
+    github: "https://github.com/bharatchoudhary/taskmanager",
+    live: "https://taskmanager-demo.com"
+  },
+  {
+    title: "AI Chat Application",
+    description:
+      "An intelligent chat application powered by OpenAI API with conversation history and context awareness.",
+    tech: ["Python", "FastAPI", "OpenAI"],
+    image: "/project3.jpg",
+    github: "https://github.com/bharatchoudhary/aichat",
+    live: "https://aichat-demo.com"
+  },
+  {
+    title: "Personal Portfolio",
+    description:
+      "A modern, responsive portfolio website showcasing projects and skills with dynamic animations.",
+    tech: ["Next.js", "Tailwind", "TypeScript"],
+    image: "/project4.jpg",
+    github: "https://github.com/bharatchoudhary/portfolio",
+    live: "https://bharatchoudhary.dev"
+  }
+];
+
 export default function Home() {
   const [isVisible, setIsVisible] = useState(false);
   const [activeProject, setActiveProject] = useState(0);
@@ -38,41 +77,6 @@ export default function Home() {
       observers.forEach((observer) => observer.disconnect());
     };
   }, [projects.length]);
-
-  const projects = [
-    {
-      title: "E-Commerce Platform",
-      description: "A full-stack e-commerce solution built with Next.js, MongoDB, and Stripe integration.",
-      tech: ["Next.js", "MongoDB", "Stripe"],
-      image: "/project1.jpg",
-      github: "https://github.com/bharatchoudhary11/ecommerce",
-      live: "https://ecommerce-demo.com"
-    },
-    {
-      title: "Task Management App",
-      description: "A collaborative task management application with real-time updates and team collaboration features.",
-      tech: ["React", "Node.js", "Socket.io"],
-      image: "/project2.jpg",
-      github: "https://github.com/bharatchoudhary/taskmanager",
-      live: "https://taskmanager-demo.com"
-    },
-    {
-      title: "AI Chat Application",
-      description: "An intelligent chat application powered by OpenAI API with conversation history and context awareness.",
-      tech: ["Python", "FastAPI", "OpenAI"],
-      image: "/project3.jpg",
-      github: "https://github.com/bharatchoudhary/aichat",
-      live: "https://aichat-demo.com"
-    },
-    {
-      title: "Personal Portfolio",
-      description: "A modern, responsive portfolio website showcasing projects and skills with dynamic animations.",
-      tech: ["Next.js", "Tailwind", "TypeScript"],
-      image: "/project4.jpg",
-      github: "https://github.com/bharatchoudhary/portfolio",
-      live: "https://bharatchoudhary.dev"
-    }
-  ];
 
   const skills = [
     "JavaScript", "TypeScript", "React", "Next.js", "Node.js", "Python", "C++",
