@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import ProfileFlip from "@/components/ProfileFlip";
 import { useState, useEffect, useRef } from "react";
 
@@ -76,7 +75,7 @@ export default function Home() {
     return () => {
       observers.forEach((observer) => observer.disconnect());
     };
-  }, [projects.length]);
+  }, []);
 
   const skills = [
     "JavaScript", "TypeScript", "React", "Next.js", "Node.js", "Python", "C++",
@@ -112,7 +111,7 @@ export default function Home() {
           <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-72 h-72 bg-violet-200 rounded-full blur-3xl opacity-30 animate-blob animation-delay-4000" />
         </div>
         <div className="max-w-4xl mx-auto">
-          <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <div className={`transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
             <div className="text-center mb-12">
               <div className="w-32 h-32 mx-auto mb-8 rounded-full">
                 <ProfileFlip
@@ -185,12 +184,12 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-12">
             <div>
               <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
-                I'm a passionate Full Stack Developer with 2+ years of experience building scalable web applications. 
+                I&apos;m a passionate Full Stack Developer with 2+ years of experience building scalable web applications.
                 Currently pursuing B.E. in Electronics and Telecommunication Engineering at Army Institute of Technology, Pune.
               </p>
               <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
                 I specialize in modern web technologies including React, Next.js, Node.js, and have extensive experience 
-                with databases like MongoDB and PostgreSQL. I'm passionate about creating efficient, user-friendly applications 
+                with databases like MongoDB and PostgreSQL. I&apos;m passionate about creating efficient, user-friendly applications
                 that solve real-world problems.
               </p>
               <div className="flex flex-wrap gap-2">
@@ -331,7 +330,7 @@ export default function Home() {
                 <span className="text-sm text-slate-500 dark:text-slate-400 mt-2 md:mt-0">June 2025 - Present</span>
               </div>
               <ul className="text-slate-600 dark:text-slate-300 space-y-2">
-                <li>• Engineered Study Pot's assessment module, achieving 25% increase in student engagement</li>
+                <li>• Engineered Study Pot&apos;s assessment module, achieving 25% increase in student engagement</li>
                 <li>• Designed admin dashboard for 10+ institutions, reducing manual overhead by 40%</li>
                 <li>• Built comprehensive assessment platform with analytics and performance tracking</li>
               </ul>
@@ -369,7 +368,7 @@ export default function Home() {
             </div>
             <div className="bg-white/80 dark:bg-white/5 p-6 rounded-lg border border-slate-200 dark:border-white/10">
               <h3 className="font-semibold text-slate-900 dark:text-white mb-2">🎯 Event Organizer</h3>
-              <p className="text-slate-600 dark:text-slate-300">Organized Technical Aakarti - college's biggest technical event</p>
+              <p className="text-slate-600 dark:text-slate-300">Organized Technical Aakarti - college&apos;s biggest technical event</p>
             </div>
             <div className="bg-white/80 dark:bg-white/5 p-6 rounded-lg border border-slate-200 dark:border-white/10">
               <h3 className="font-semibold text-slate-900 dark:text-white mb-2">💻 Coding Excellence</h3>
@@ -391,11 +390,11 @@ export default function Home() {
           <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-12 text-center">Get In Touch</h2>
           <div className="grid md:grid-cols-2 gap-12">
             <div>
-              <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-6">Let's Connect</h3>
+              <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-6">Let&apos;s Connect</h3>
               <p className="text-slate-600 dark:text-slate-300 mb-8">
-                I'm always excited to work on new projects and collaborate with fellow developers. 
+                I&apos;m always excited to work on new projects and collaborate with fellow developers.
                 Whether you have a question, want to discuss a project, or just want to say hello, 
-                I'd love to hear from you!
+                I&apos;d love to hear from you!
               </p>
               <div className="space-y-4">
                 <div className="flex items-center space-x-3">

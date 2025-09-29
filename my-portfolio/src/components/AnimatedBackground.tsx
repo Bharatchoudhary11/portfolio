@@ -84,10 +84,10 @@ export default function AnimatedBackground() {
         const s = arr[i];
         let x = s.x + s.vx;
         let y = s.y + s.vy;
-        let rot = (s.rotation + s.vr) % 360;
+        const rotation = (s.rotation + s.vr) % 360;
         if (x > w + s.size) x = -s.size; else if (x < -s.size) x = w + s.size;
         if (y > h + s.size) y = -s.size; else if (y < -s.size) y = h + s.size;
-        arr[i] = { ...s, x, y, rotation: rot };
+        arr[i] = { ...s, x, y, rotation };
       }
 
       // collisions
