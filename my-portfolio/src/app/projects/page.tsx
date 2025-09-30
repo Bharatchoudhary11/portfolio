@@ -39,16 +39,46 @@ export default function ProjectsPage() {
   }, []);
 
   return (
-    <div className="max-w-2xl mx-auto p-4">
-      <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white mb-4">Projects</h1>
-      <ul className="space-y-4">
-        {projects.map((p) => (
-          <li key={p._id} className="border border-slate-200 dark:border-white/10 p-4 rounded bg-white/80 dark:bg-white/5">
-            <h2 className="font-semibold text-slate-900 dark:text-white">{p.title}</h2>
-            <p className="text-slate-600 dark:text-slate-300">{p.description}</p>
-          </li>
-        ))}
-      </ul>
+    <div className="min-h-screen bg-slate-100/60 dark:bg-slate-950/40 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-4xl">
+        <div className="rounded-3xl border border-slate-200/60 bg-white/70 shadow-xl backdrop-blur dark:border-white/10 dark:bg-slate-900/40">
+          <div className="flex h-[70vh] flex-col p-6 sm:p-10">
+            <div>
+              <p className="text-sm font-medium uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+                Selected Work
+              </p>
+              <h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
+                Projects
+              </h1>
+              <p className="mt-3 max-w-2xl text-sm text-slate-600 dark:text-slate-300 sm:text-base">
+                Explore the things I’ve been building lately. Scroll inside the showcase to browse through every project.
+              </p>
+            </div>
+
+            <div className="mt-6 flex-1 overflow-y-auto pr-3 sm:pr-4">
+              <ul className="space-y-4">
+                {projects.length === 0 ? (
+                  <li className="rounded-2xl border border-dashed border-slate-300/70 bg-white/80 p-6 text-center text-sm font-medium text-slate-500 dark:border-white/10 dark:bg-slate-900/20 dark:text-slate-300">
+                    No projects to display yet. Check back soon!
+                  </li>
+                ) : (
+                  projects.map((p) => (
+                    <li
+                      key={p._id}
+                      className="rounded-2xl border border-slate-200/70 bg-white/90 p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-white/10 dark:bg-slate-900/60"
+                    >
+                      <h2 className="text-lg font-semibold text-slate-900 dark:text-white">{p.title}</h2>
+                      <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                        {p.description}
+                      </p>
+                    </li>
+                  ))
+                )}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
