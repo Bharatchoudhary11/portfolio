@@ -10,6 +10,7 @@ interface Project {
 
 export default function ProjectsPage() {
   const [projects, setProjects] = useState<Project[]>([]);
+  const [newProjects, setNewProjects] = useState<Project[]>([]);
 
   useEffect(() => {
     async function loadProjects() {
@@ -33,7 +34,17 @@ export default function ProjectsPage() {
     const evtSource = new EventSource("/api/projects/stream");
     evtSource.onmessage = (e) => {
       const project: Project = JSON.parse(e.data);
-      setProjects((prev) => [project, ...prev]);
+      setProjects((prev) => {
+        const exists = prev.some((p) => p._id === project._id);
+        if (exists) {
+          return prev;
+        }
+        return [project, ...prev];
+      });
+      setNewProjects((prev) => {
+        const filtered = prev.filter((p) => p._id !== project._id);
+        return [project, ...filtered];
+      });
     };
     return () => evtSource.close();
   }, []);
@@ -55,26 +66,72 @@ export default function ProjectsPage() {
               </p>
             </div>
 
-            <div className="mt-6 flex-1 overflow-y-auto pr-3 sm:pr-4">
-              <ul className="space-y-4">
-                {projects.length === 0 ? (
-                  <li className="rounded-2xl border border-dashed border-slate-300/70 bg-white/80 p-6 text-center text-sm font-medium text-slate-500 dark:border-white/10 dark:bg-slate-900/20 dark:text-slate-300">
-                    No projects to display yet. Check back soon!
-                  </li>
-                ) : (
-                  projects.map((p) => (
-                    <li
-                      key={p._id}
-                      className="rounded-2xl border border-slate-200/70 bg-white/90 p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-white/10 dark:bg-slate-900/60"
-                    >
-                      <h2 className="text-lg font-semibold text-slate-900 dark:text-white">{p.title}</h2>
-                      <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-                        {p.description}
+            <div className="mt-6 flex-1 overflow-hidden">
+              <div className="flex h-full flex-col gap-6">
+                <section className="flex-[1] min-h-0 overflow-hidden rounded-2xl border border-indigo-200/60 bg-indigo-50/70 p-4 dark:border-indigo-400/20 dark:bg-indigo-500/10">
+                  <div className="flex items-center justify-between">
+                    <h2 className="text-base font-semibold text-indigo-900 dark:text-indigo-200">New Projects</h2>
+                    {newProjects.length > 0 && (
+                      <span className="rounded-full bg-indigo-100 px-3 py-1 text-xs font-medium text-indigo-700 dark:bg-indigo-400/20 dark:text-indigo-200">
+                        Live updates
+                      </span>
+                    )}
+                  </div>
+                  <div className="mt-3 h-full overflow-y-auto pr-1 text-sm">
+                    {newProjects.length === 0 ? (
+                      <p className="text-slate-500 dark:text-slate-300">
+                        New additions will appear here as they are published.
                       </p>
-                    </li>
-                  ))
-                )}
-              </ul>
+                    ) : (
+                      <ul className="space-y-3">
+                        {newProjects.map((project) => (
+                          <li
+                            key={project._id}
+                            className="rounded-xl border border-indigo-200/60 bg-white/90 p-3 shadow-sm dark:border-indigo-400/20 dark:bg-slate-900/60"
+                          >
+                            <p className="font-medium text-slate-900 dark:text-white">{project.title}</p>
+                            <p className="mt-1 text-xs leading-relaxed text-slate-600 dark:text-slate-300">
+                              {project.description}
+                            </p>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                </section>
+
+                <section className="flex-[4] min-h-0 overflow-hidden">
+                  <div className="flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200/70 bg-white/90 dark:border-white/10 dark:bg-slate-900/60">
+                    <header className="border-b border-slate-200/70 px-4 py-3 dark:border-white/10">
+                      <h2 className="text-base font-semibold text-slate-900 dark:text-white">All Projects</h2>
+                      <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                        Browse the entire archive including the latest updates.
+                      </p>
+                    </header>
+                    <div className="flex-1 overflow-y-auto px-4 py-4 pr-5 sm:pr-6">
+                      <ul className="space-y-4">
+                        {projects.length === 0 ? (
+                          <li className="rounded-2xl border border-dashed border-slate-300/70 bg-white/80 p-6 text-center text-sm font-medium text-slate-500 dark:border-white/10 dark:bg-slate-900/20 dark:text-slate-300">
+                            No projects to display yet. Check back soon!
+                          </li>
+                        ) : (
+                          projects.map((p) => (
+                            <li
+                              key={p._id}
+                              className="rounded-2xl border border-slate-200/70 bg-white/90 p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-white/10 dark:bg-slate-900/60"
+                            >
+                              <h3 className="text-lg font-semibold text-slate-900 dark:text-white">{p.title}</h3>
+                              <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                                {p.description}
+                              </p>
+                            </li>
+                          ))
+                        )}
+                      </ul>
+                    </div>
+                  </div>
+                </section>
+              </div>
             </div>
           </div>
         </div>
