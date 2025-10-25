@@ -228,7 +228,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-12 text-center">Featured Projects</h2>
           <div className="relative">
-            <div className="space-y-16 md:space-y-24 lg:space-y-32">
+            <div className="space-y-12 md:space-y-16 lg:space-y-20">
               {projects.map((project, index) => (
                 <div
                   key={index}
