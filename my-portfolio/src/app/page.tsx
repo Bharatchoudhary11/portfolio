@@ -126,7 +126,7 @@ export default function Home() {
                 Bharat Choudhary
               </h1>
               <p className="text-xl text-slate-600 dark:text-slate-300 mb-8 max-w-2xl mx-auto">
-                Full Stack Developer & Software Engineer passionate about building innovative solutions and creating exceptional user experiences.
+                <span className="text-gradient font-semibold">Full Stack Developer &amp; Software Engineer</span> passionate about building innovative solutions and creating exceptional user experiences.
               </p>
               <div className="flex justify-center space-x-6 mb-8">
                 <a 
@@ -194,9 +194,9 @@ export default function Home() {
               </p>
               <div className="flex flex-wrap gap-2">
                 {skills.slice(0, 8).map((skill, index) => (
-                  <span 
+                  <span
                     key={index}
-                    className="px-3 py-1 bg-white/80 dark:bg-white/10 text-slate-700 dark:text-slate-200 rounded-full text-sm border border-slate-200 dark:border-white/10"
+                    className="px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r from-indigo-50/80 via-sky-50/80 to-purple-50/80 dark:from-white/10 dark:via-white/5 dark:to-white/10 text-slate-700 dark:text-slate-100 border border-white/60 dark:border-white/10 shadow-sm"
                   >
                     {skill}
                   </span>
@@ -271,7 +271,7 @@ export default function Home() {
                         {project.tech.map((tech, techIndex) => (
                           <span
                             key={techIndex}
-                            className="px-3 py-1 bg-slate-100/80 dark:bg-white/10 text-slate-700 dark:text-slate-200 rounded-full text-sm"
+                            className="px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r from-slate-100/80 via-indigo-50/80 to-purple-50/70 dark:from-white/10 dark:via-white/5 dark:to-white/10 text-slate-700 dark:text-slate-100 border border-white/40 dark:border-white/10 shadow-sm"
                           >
                             {tech}
                           </span>
