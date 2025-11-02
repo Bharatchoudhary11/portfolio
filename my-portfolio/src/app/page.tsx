@@ -3,6 +3,10 @@
 import ProfileFlip from "@/components/ProfileFlip";
 import { useState, useEffect, useRef } from "react";
 
+const heroHeadline =
+  "Full Stack Developer & Software Engineer passionate about building innovative solutions and creating exceptional user experiences.";
+const heroHighlight = "Full Stack Developer & Software Engineer";
+
 const projects = [
   {
     title: "E-Commerce Platform",
@@ -46,9 +50,42 @@ export default function Home() {
   const [isVisible, setIsVisible] = useState(false);
   const [activeProject, setActiveProject] = useState(0);
   const projectRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [typedText, setTypedText] = useState("");
 
   useEffect(() => {
     setIsVisible(true);
+  }, []);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    if (mediaQuery.matches) {
+      setTypedText(heroHeadline);
+      return;
+    }
+
+    let index = 0;
+    const typingSpeed = 45;
+    const startDelay = 300;
+    let typingInterval: ReturnType<typeof setInterval> | undefined;
+
+    const startTimeout = setTimeout(() => {
+      typingInterval = setInterval(() => {
+        index += 1;
+        setTypedText(heroHeadline.slice(0, index));
+
+        if (index >= heroHeadline.length && typingInterval) {
+          clearInterval(typingInterval);
+        }
+      }, typingSpeed);
+    }, startDelay);
+
+    return () => {
+      if (typingInterval) {
+        clearInterval(typingInterval);
+      }
+      clearTimeout(startTimeout);
+    };
   }, []);
 
   useEffect(() => {
@@ -125,8 +162,15 @@ export default function Home() {
               <h1 className="text-5xl md:text-6xl font-bold text-slate-900 dark:text-white tracking-tight mb-4">
                 Bharat Choudhary
               </h1>
-              <p className="text-xl text-slate-600 dark:text-slate-300 mb-8 max-w-2xl mx-auto">
-                <span className="text-gradient font-semibold">Full Stack Developer &amp; Software Engineer</span> passionate about building innovative solutions and creating exceptional user experiences.
+              <p
+                className="text-xl text-slate-600 dark:text-slate-300 mb-8 max-w-2xl mx-auto"
+                aria-live="polite"
+              >
+                <span className="text-gradient font-semibold">
+                  {typedText.slice(0, Math.min(typedText.length, heroHighlight.length))}
+                </span>
+                <span>{typedText.slice(heroHighlight.length)}</span>
+                <span className="typing-cursor" aria-hidden="true" />
               </p>
               <div className="flex justify-center space-x-6 mb-8">
                 <a 
