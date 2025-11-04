@@ -31,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gradient-to-br from-indigo-50 via-sky-50 to-rose-50 dark:from-slate-950 dark:via-indigo-950 dark:to-fuchsia-950`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gradient-to-br from-sky-50 via-sky-100 to-blue-100 dark:from-slate-950 dark:via-indigo-950 dark:to-fuchsia-950`}
       >
         <AnimatedBackground />
         {children}
