@@ -17,9 +17,9 @@ export const metadata: Metadata = {
   title: "Bharat Choudhary - Full Stack Developer",
   description: "Portfolio of Bharat Choudhary - Software Development Engineer specializing in React, Next.js, and full-stack development",
   icons: {
-    icon: '/favicon.svg',
-    shortcut: '/favicon.svg',
-    apple: '/favicon.svg',
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/favicon.ico',
   },
 };
 

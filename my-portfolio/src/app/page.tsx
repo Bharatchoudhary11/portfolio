@@ -153,9 +153,9 @@ export default function Home() {
               <div className="w-32 h-32 mx-auto mb-8 rounded-full">
                 <ProfileFlip
                   frontSrc="/portfoliopic.svg"
-                  backSrc="/profile-photo.jpg"
+                  backSrc="/profile-photo.svg"
                   altFront="Profile photo"
-                  altBack="Alternate profile photo"
+                  altBack="Illustrated portrait with goggles"
                   size={128}
                 />
               </div>
@@ -228,13 +228,26 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-12">
             <div>
               <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
-                I&apos;m a passionate Full Stack Developer with 2+ years of experience building scalable web applications.
-                Currently pursuing B.E. in Electronics and Telecommunication Engineering at Army Institute of Technology, Pune.
+                Hey there! 👋 I&apos;m <span className="font-semibold text-violet-600 dark:text-violet-300">Bharat Choudhary</span>, a
+                <span className="font-semibold text-violet-600 dark:text-violet-300"> Full-Stack Developer</span> who loves crafting
+                smart, scalable, and user-centric digital products. I graduated from the
+                <span className="font-semibold text-violet-600 dark:text-violet-300"> Army Institute of Technology, Pune</span> with a
+                <span className="font-semibold text-violet-600 dark:text-violet-300"> B.E. in Electronics and Telecommunication
+                  Engineering (EnTC)</span>, and since then I&apos;ve been obsessed with turning complex ideas into simple, elegant, and
+                high-performing web experiences.
               </p>
               <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
-                I specialize in modern web technologies including React, Next.js, Node.js, and have extensive experience 
-                with databases like MongoDB and PostgreSQL. I&apos;m passionate about creating efficient, user-friendly applications
-                that solve real-world problems.
+                I work across the stack -- from sleek
+                <span className="font-semibold text-violet-600 dark:text-violet-300"> React + TypeScript</span> frontends that delight
+                users to robust <span className="font-semibold text-violet-600 dark:text-violet-300">Node.js and Python</span> backends
+                that keep everything running smoothly. I&apos;m passionate about modern web ecosystems and thrive on creating
+                <span className="font-semibold text-violet-600 dark:text-violet-300"> efficient, real-world solutions</span> powered by
+                technologies like <span className="font-semibold text-violet-600 dark:text-violet-300">MongoDB and PostgreSQL</span>,
+                built on clean architecture and thoughtful design.
+              </p>
+              <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
+                When I&apos;m not coding, you&apos;ll find me exploring new AI tools, refining side projects, or pushing the limits of what
+                great products can do. 🚀
               </p>
               <div className="flex flex-wrap gap-2">
                 {skills.slice(0, 8).map((skill, index) => (
