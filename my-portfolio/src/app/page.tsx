@@ -229,12 +229,9 @@ export default function Home() {
             <div>
               <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
                 Hey there! 👋 I&apos;m <span className="font-semibold text-violet-600 dark:text-violet-300">Bharat Choudhary</span>, a
-                <span className="font-semibold text-violet-600 dark:text-violet-300"> Full-Stack Developer</span> who loves crafting
-                smart, scalable, and user-centric digital products. I graduated from the
-                <span className="font-semibold text-violet-600 dark:text-violet-300"> Army Institute of Technology, Pune</span> with a
-                <span className="font-semibold text-violet-600 dark:text-violet-300"> B.E. in Electronics and Telecommunication
-                  Engineering (EnTC)</span>, and since then I&apos;ve been obsessed with turning complex ideas into simple, elegant, and
-                high-performing web experiences.
+                <span className="font-semibold text-violet-600 dark:text-violet-300"> Full-Stack Developer</span> crafting scalable,
+                user-first products. I translate complex ideas into clean, high-performing experiences that feel effortless for
+                customers and empowering for the teams behind them.
               </p>
               <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
                 I work across the stack -- from sleek
@@ -261,19 +258,18 @@ export default function Home() {
               </div>
             </div>
             <div className="space-y-6">
-              <div className="bg-white/80 dark:bg-white/5 p-6 rounded-lg border border-slate-200 dark:border-white/10">
-                <h3 className="font-semibold text-slate-900 dark:text-white mb-2">Education</h3>
-                <p className="text-slate-600 dark:text-slate-300">B.E. Electronics & Telecommunication</p>
-                <p className="text-sm text-slate-500 dark:text-slate-400">Army Institute of Technology, Pune</p>
-                <p className="text-sm text-slate-500 dark:text-slate-400">CGPA: 8.32</p>
-              </div>
-              <div className="bg-white/80 dark:bg-white/5 p-6 rounded-lg border border-slate-200 dark:border-white/10">
-                <h3 className="font-semibold text-slate-900 dark:text-white mb-2">Location</h3>
-                <p className="text-slate-600 dark:text-slate-300">Pune, Maharashtra, India</p>
-              </div>
-              <div className="bg-white/80 dark:bg-white/5 p-6 rounded-lg border border-slate-200 dark:border-white/10">
-                <h3 className="font-semibold text-slate-900 dark:text-white mb-2">Availability</h3>
-                <p className="text-slate-600 dark:text-slate-300">Open to new opportunities</p>
+              <div className="bg-white/80 dark:bg-white/5 p-6 rounded-lg border border-slate-200 dark:border-white/10 space-y-4">
+                <h3 className="font-semibold text-slate-900 dark:text-white">Education</h3>
+                <div className="space-y-3 text-sm text-slate-500 dark:text-slate-400">
+                  <div>
+                    <p className="text-slate-600 dark:text-slate-300 font-medium text-base">B.E. Electronics & Telecommunication</p>
+                    <p>Army Institute of Technology, Pune · CGPA 7.52</p>
+                  </div>
+                  <div className="border-t border-slate-100 dark:border-white/10 pt-3">
+                    <p className="text-slate-600 dark:text-slate-300 font-medium text-base">Higher School</p>
+                    <p>Genius Children Public School, Kota · 74%</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
