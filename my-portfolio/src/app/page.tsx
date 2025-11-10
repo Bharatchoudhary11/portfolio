@@ -2,6 +2,7 @@
 
 import ProfileFlip from "@/components/ProfileFlip";
 import { useState, useEffect, useRef } from "react";
+import type { TouchEvent } from "react";
 
 const heroHeadline =
   "Full Stack Developer & Software Engineer passionate about building innovative solutions and creating exceptional user experiences.";
@@ -49,8 +50,9 @@ const projects = [
 export default function Home() {
   const [isVisible, setIsVisible] = useState(false);
   const [activeProject, setActiveProject] = useState(0);
-  const projectRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [typedText, setTypedText] = useState("");
+  const touchStartX = useRef<number | null>(null);
+  const touchEndX = useRef<number | null>(null);
 
   useEffect(() => {
     setIsVisible(true);
@@ -89,30 +91,43 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    const observers: IntersectionObserver[] = [];
+    const interval = setInterval(() => {
+      setActiveProject((prev) => (prev + 1) % projects.length);
+    }, 6000);
 
-    projectRefs.current.forEach((ref, index) => {
-      if (!ref) return;
-
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            setActiveProject(index);
-          }
-        },
-        {
-          threshold: 0.6
-        }
-      );
-
-      observer.observe(ref);
-      observers.push(observer);
-    });
-
-    return () => {
-      observers.forEach((observer) => observer.disconnect());
-    };
+    return () => clearInterval(interval);
   }, []);
+
+  const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
+    touchEndX.current = null;
+    touchStartX.current = event.touches[0].clientX;
+  };
+
+  const handleTouchMove = (event: TouchEvent<HTMLDivElement>) => {
+    touchEndX.current = event.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStartX.current === null || touchEndX.current === null) {
+      touchStartX.current = null;
+      touchEndX.current = null;
+      return;
+    }
+
+    const delta = touchStartX.current - touchEndX.current;
+
+    if (Math.abs(delta) > 40) {
+      setActiveProject((prev) => {
+        if (delta > 0) {
+          return (prev + 1) % projects.length;
+        }
+        return (prev - 1 + projects.length) % projects.length;
+      });
+    }
+
+    touchStartX.current = null;
+    touchEndX.current = null;
+  };
 
   const skills = [
     "JavaScript", "TypeScript", "React", "Next.js", "Node.js", "Python", "C++",
@@ -281,83 +296,97 @@ export default function Home() {
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-12 text-center">Featured Projects</h2>
           <div className="relative">
-            <div className="space-y-12 md:space-y-16 lg:space-y-20">
-              {projects.map((project, index) => (
-                <div
-                  key={index}
-                  ref={(el) => {
-                    projectRefs.current[index] = el;
-                  }}
-                  className="min-h-[60vh] md:min-h-[65vh] lg:min-h-[70vh]"
-                >
-                  <article
-                    className={`sticky top-32 mx-auto max-w-4xl bg-white/80 dark:bg-white/5 rounded-lg border border-slate-200 dark:border-white/10 overflow-hidden transition-all duration-500 backdrop-blur-sm ${
-                      activeProject === index
-                        ? "opacity-100 scale-100 shadow-xl"
-                        : "opacity-40 scale-95"
-                    }`}
-                  >
-                    <div className="h-48 bg-slate-50 dark:bg-white/5 flex items-center justify-center">
-                      <div className="text-4xl text-slate-400">📱</div>
-                    </div>
-                    <div className="p-6">
-                      <div className="flex items-center justify-between mb-4">
-                        <span className="text-sm font-medium uppercase tracking-widest text-slate-400 dark:text-slate-500">
-                          Project {index + 1} of {projects.length}
-                        </span>
-                        <div className="flex gap-2">
-                          {projects.map((_, indicatorIndex) => (
+            <div
+              className="overflow-hidden"
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+            >
+              <div
+                className="flex transition-transform duration-700 ease-in-out"
+                style={{ transform: `translateX(-${activeProject * 100}%)` }}
+              >
+                {projects.map((project, index) => (
+                  <article key={index} className="w-full flex-shrink-0 flex-grow-0 basis-full px-0 md:px-2">
+                    <div
+                      className={`w-full mx-auto max-w-3xl bg-white/80 dark:bg-white/5 rounded-2xl border border-slate-200 dark:border-white/10 overflow-hidden transition-all duration-500 backdrop-blur-sm min-h-[32vh] md:min-h-[45vh] lg:min-h-[50vh] ${
+                        activeProject === index ? "opacity-100 scale-100 shadow-xl" : "opacity-50 scale-95"
+                      }`}
+                    >
+                      <div className="h-32 md:h-44 lg:h-48 bg-slate-50 dark:bg-white/5 flex items-center justify-center">
+                        <div className="text-4xl text-slate-400">📱</div>
+                      </div>
+                      <div className="p-4 sm:p-5 md:p-6 flex flex-col h-full">
+                        <h3 className="text-2xl font-semibold text-slate-900 dark:text-white mb-2">{project.title}</h3>
+                        <p className="text-slate-600 dark:text-slate-300 mb-3 leading-relaxed md:leading-relaxed">{project.description}</p>
+                        <div className="flex flex-wrap gap-1.5 md:gap-2 mb-3">
+                          {project.tech.map((tech, techIndex) => (
                             <span
-                              key={indicatorIndex}
-                              className={`h-1.5 w-8 rounded-full transition-colors ${
-                                activeProject === indicatorIndex
-                                  ? "bg-slate-900 dark:bg-white"
-                                  : "bg-slate-200 dark:bg-white/20"
-                              }`}
-                            />
+                              key={techIndex}
+                              className="px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r from-slate-100/80 via-indigo-50/80 to-purple-50/70 dark:from-white/10 dark:via-white/5 dark:to-white/10 text-slate-700 dark:text-slate-100 border border-white/40 dark:border-white/10 shadow-sm"
+                            >
+                              {tech}
+                            </span>
                           ))}
                         </div>
-                      </div>
-                      <h3 className="text-2xl font-semibold text-slate-900 dark:text-white mb-3">{project.title}</h3>
-                      <p className="text-slate-600 dark:text-slate-300 mb-5 leading-relaxed">{project.description}</p>
-                      <div className="flex flex-wrap gap-2 mb-5">
-                        {project.tech.map((tech, techIndex) => (
-                          <span
-                            key={techIndex}
-                            className="px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r from-slate-100/80 via-indigo-50/80 to-purple-50/70 dark:from-white/10 dark:via-white/5 dark:to-white/10 text-slate-700 dark:text-slate-100 border border-white/40 dark:border-white/10 shadow-sm"
+                        <div className="flex flex-wrap gap-3 md:gap-4 mt-auto pt-4">
+                          <a
+                            href={project.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
                           >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                      <div className="flex flex-wrap gap-4">
-                        <a
-                          href={project.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
-                        >
-                          <span>GitHub</span>
-                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M12.293 2.293a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L14 5.414V17a1 1 0 11-2 0V5.414L9.707 7.707A1 1 0 018.293 6.293l4-4z" />
-                          </svg>
-                        </a>
-                        <a
-                          href={project.live}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
-                        >
-                          <span>Live Demo</span>
-                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M12.293 2.293a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L14 5.414V17a1 1 0 11-2 0V5.414L9.707 7.707A1 1 0 018.293 6.293l4-4z" />
-                          </svg>
-                        </a>
+                            <span>GitHub</span>
+                            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                              <path d="M12.293 2.293a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L14 5.414V17a1 1 0 11-2 0V5.414L9.707 7.707A1 1 0 018.293 6.293l4-4z" />
+                            </svg>
+                          </a>
+                          <a
+                            href={project.live}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
+                          >
+                            <span>Live Demo</span>
+                            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                              <path d="M12.293 2.293a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L14 5.414V17a1 1 0 11-2 0V5.414L9.707 7.707A1 1 0 018.293 6.293l4-4z" />
+                            </svg>
+                          </a>
+                        </div>
                       </div>
                     </div>
                   </article>
-                </div>
-              ))}
+                ))}
+              </div>
+            </div>
+            <div className="flex justify-center gap-1.5 md:gap-2.5 lg:gap-3 mt-3 md:mt-4 lg:mt-5">
+              {projects.map((_, indicatorIndex) => {
+                const isActive = activeProject === indicatorIndex;
+
+                return (
+                  <button
+                    key={indicatorIndex}
+                    type="button"
+                    onClick={() => setActiveProject(indicatorIndex)}
+                    className="relative flex items-center justify-center w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 focus:outline-none"
+                    aria-label={`Show project ${indicatorIndex + 1}`}
+                  >
+                    <span
+                      className={`absolute rounded-full border-2 border-violet-400 dark:border-violet-300 transition-all duration-300 ${
+                        isActive ? "opacity-100 scale-110" : "opacity-0 scale-50"
+                      }`}
+                      style={{ inset: "-4px" }}
+                      aria-hidden
+                    />
+                    <span
+                      className={`w-2.5 h-2.5 md:w-3 md:h-3 lg:w-3.5 lg:h-3.5 rounded-full transition-colors duration-300 ${
+                        isActive ? "bg-violet-500" : "bg-slate-300/80"
+                      }`}
+                      aria-hidden
+                    />
+                  </button>
+                );
+              })}
             </div>
           </div>
         </div>
