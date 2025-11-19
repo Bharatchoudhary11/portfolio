@@ -321,107 +321,109 @@ export default function Home() {
       <section id="projects" className="py-16 px-6">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-12 text-center">Featured Projects</h2>
-          <div className="relative">
-            <div
-              className="overflow-hidden"
-              onTouchStart={handleTouchStart}
-              onTouchMove={handleTouchMove}
-              onTouchEnd={handleTouchEnd}
-            >
+          <div>
+            <div className="relative">
               <div
-                className="flex transition-transform duration-700 ease-in-out"
-                style={{ transform: `translateX(-${activeProject * 100}%)` }}
+                className="overflow-hidden"
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
               >
-                {projects.map((project, index) => (
-                  <article key={index} className="w-full flex-shrink-0 flex-grow-0 basis-full px-0 md:px-2">
-                    <div
-                      className={`w-full mx-auto max-w-3xl bg-white/80 dark:bg-white/5 rounded-2xl border border-slate-200 dark:border-white/10 overflow-hidden transition-all duration-500 backdrop-blur-sm min-h-[32vh] md:min-h-[45vh] lg:min-h-[50vh] ${
-                        activeProject === index ? "opacity-100 scale-100 shadow-xl" : "opacity-50 scale-95"
-                      }`}
-                    >
-                      <div className="h-32 md:h-44 lg:h-48 bg-slate-50 dark:bg-white/5 flex items-center justify-center">
-                        <div className="text-4xl text-slate-400">📱</div>
-                      </div>
-                      <div className="p-4 sm:p-5 md:p-6 flex flex-col h-full">
-                        <h3 className="text-2xl font-semibold text-slate-900 dark:text-white mb-2">{project.title}</h3>
-                        <p className="text-slate-600 dark:text-slate-300 mb-3 leading-relaxed md:leading-relaxed">{project.description}</p>
-                        <div className="flex flex-wrap gap-1.5 md:gap-2 mb-3">
-                          {project.tech.map((tech, techIndex) => (
-                            <span
-                              key={techIndex}
-                              className="px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r from-slate-100/80 via-indigo-50/80 to-purple-50/70 dark:from-white/10 dark:via-white/5 dark:to-white/10 text-slate-700 dark:text-slate-100 border border-white/40 dark:border-white/10 shadow-sm"
+                <div
+                  className="flex transition-transform duration-700 ease-in-out"
+                  style={{ transform: `translateX(-${activeProject * 100}%)` }}
+                >
+                  {projects.map((project, index) => (
+                    <article key={index} className="w-full flex-shrink-0 flex-grow-0 basis-full px-0 md:px-2">
+                      <div
+                        className={`w-full mx-auto max-w-3xl bg-white/80 dark:bg-white/5 rounded-2xl border border-slate-200 dark:border-white/10 overflow-hidden transition-all duration-500 backdrop-blur-sm min-h-[32vh] md:min-h-[45vh] lg:min-h-[50vh] ${
+                          activeProject === index ? "opacity-100 scale-100 shadow-xl" : "opacity-50 scale-95"
+                        }`}
+                      >
+                        <div className="h-32 md:h-44 lg:h-48 bg-slate-50 dark:bg-white/5 flex items-center justify-center">
+                          <div className="text-4xl text-slate-400">📱</div>
+                        </div>
+                        <div className="p-4 sm:p-5 md:p-6 flex flex-col h-full">
+                          <h3 className="text-2xl font-semibold text-slate-900 dark:text-white mb-2">{project.title}</h3>
+                          <p className="text-slate-600 dark:text-slate-300 mb-3 leading-relaxed md:leading-relaxed">{project.description}</p>
+                          <div className="flex flex-wrap gap-1.5 md:gap-2 mb-3">
+                            {project.tech.map((tech, techIndex) => (
+                              <span
+                                key={techIndex}
+                                className="px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r from-slate-100/80 via-indigo-50/80 to-purple-50/70 dark:from-white/10 dark:via-white/5 dark:to-white/10 text-slate-700 dark:text-slate-100 border border-white/40 dark:border-white/10 shadow-sm"
+                              >
+                                {tech}
+                              </span>
+                            ))}
+                          </div>
+                          <div className="flex flex-wrap gap-3 md:gap-4 mt-auto pt-4">
+                            <a
+                              href={project.github}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
                             >
-                              {tech}
-                            </span>
-                          ))}
-                        </div>
-                        <div className="flex flex-wrap gap-3 md:gap-4 mt-auto pt-4">
-                          <a
-                            href={project.github}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
-                          >
-                            <span>GitHub</span>
-                            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                              <path d="M12.293 2.293a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L14 5.414V17a1 1 0 11-2 0V5.414L9.707 7.707A1 1 0 018.293 6.293l4-4z" />
-                            </svg>
-                          </a>
-                          <a
-                            href={project.live}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
-                          >
-                            <span>Live Demo</span>
-                            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                              <path d="M12.293 2.293a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L14 5.414V17a1 1 0 11-2 0V5.414L9.707 7.707A1 1 0 018.293 6.293l4-4z" />
-                            </svg>
-                          </a>
+                              <span>GitHub</span>
+                              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M12.293 2.293a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L14 5.414V17a1 1 0 11-2 0V5.414L9.707 7.707A1 1 0 018.293 6.293l4-4z" />
+                              </svg>
+                            </a>
+                            <a
+                              href={project.live}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
+                            >
+                              <span>Live Demo</span>
+                              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M12.293 2.293a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L14 5.414V17a1 1 0 11-2 0V5.414L9.707 7.707A1 1 0 018.293 6.293l4-4z" />
+                              </svg>
+                            </a>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </article>
-                ))}
+                    </article>
+                  ))}
+                </div>
               </div>
-            </div>
-            <div className="pointer-events-none absolute inset-y-0 left-0 right-0 flex items-center justify-between px-1 sm:px-3">
-              <button
-                type="button"
-                onClick={() => handleArrowNavigation("prev")}
-                className="pointer-events-auto inline-flex items-center justify-center rounded-full bg-white/80 dark:bg-slate-900/70 border border-slate-200 dark:border-white/10 shadow-md text-slate-700 dark:text-slate-100 w-10 h-10 hover:bg-white dark:hover:bg-slate-900 transition"
-                aria-label="Show previous project"
-              >
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  viewBox="0 0 24 24"
+              <div className="pointer-events-none absolute inset-y-0 left-0 right-0 flex items-center justify-between px-1 sm:px-3">
+                <button
+                  type="button"
+                  onClick={() => handleArrowNavigation("prev")}
+                  className="pointer-events-auto inline-flex items-center justify-center rounded-full bg-white/80 dark:bg-slate-900/70 border border-slate-200 dark:border-white/10 shadow-md text-slate-700 dark:text-slate-100 w-10 h-10 hover:bg-white dark:hover:bg-slate-900 transition"
+                  aria-label="Show previous project"
                 >
-                  <path d="M15 18l-6-6 6-6" />
-                </svg>
-              </button>
-              <button
-                type="button"
-                onClick={() => handleArrowNavigation("next")}
-                className="pointer-events-auto inline-flex items-center justify-center rounded-full bg-white/80 dark:bg-slate-900/70 border border-slate-200 dark:border-white/10 shadow-md text-slate-700 dark:text-slate-100 w-10 h-10 hover:bg-white dark:hover:bg-slate-900 transition"
-                aria-label="Show next project"
-              >
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  viewBox="0 0 24 24"
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M15 18l-6-6 6-6" />
+                  </svg>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleArrowNavigation("next")}
+                  className="pointer-events-auto inline-flex items-center justify-center rounded-full bg-white/80 dark:bg-slate-900/70 border border-slate-200 dark:border-white/10 shadow-md text-slate-700 dark:text-slate-100 w-10 h-10 hover:bg-white dark:hover:bg-slate-900 transition"
+                  aria-label="Show next project"
                 >
-                  <path d="M9 6l6 6-6 6" />
-                </svg>
-              </button>
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M9 6l6 6-6 6" />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div className="flex justify-center gap-1.5 md:gap-2.5 lg:gap-3 mt-3 md:mt-4 lg:mt-5">
               {projects.map((_, indicatorIndex) => {
@@ -452,7 +454,7 @@ export default function Home() {
                 );
               })}
             </div>
-            {seeMorePrompt && (
+            {projects.length > 1 && seeMorePrompt && (
               <div className="mt-6 text-center space-y-2">
                 <p className="text-sm text-slate-500 dark:text-slate-400">
                   You&apos;ve reached {seeMorePrompt === "left" ? "the first" : "the last"} featured project.
