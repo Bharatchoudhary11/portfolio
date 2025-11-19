@@ -7,6 +7,7 @@ import type { TouchEvent } from "react";
 const heroHeadline =
   "Full Stack Developer & Software Engineer passionate about building innovative solutions and creating exceptional user experiences.";
 const heroHighlight = "Full Stack Developer & Software Engineer";
+const githubProfile = "https://github.com/bharatchoudhary";
 
 const projects = [
   {
@@ -51,6 +52,7 @@ export default function Home() {
   const [isVisible, setIsVisible] = useState(false);
   const [activeProject, setActiveProject] = useState(0);
   const [typedText, setTypedText] = useState("");
+  const [seeMorePrompt, setSeeMorePrompt] = useState<null | "left" | "right">(null);
   const touchStartX = useRef<number | null>(null);
   const touchEndX = useRef<number | null>(null);
 
@@ -97,6 +99,30 @@ export default function Home() {
 
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    setSeeMorePrompt(null);
+  }, [activeProject]);
+
+  const handleArrowNavigation = (direction: "prev" | "next") => {
+    setSeeMorePrompt(null);
+    setActiveProject((prev) => {
+      if (direction === "prev") {
+        if (prev === 0) {
+          setSeeMorePrompt("left");
+          return prev;
+        }
+        return prev - 1;
+      }
+
+      if (prev === projects.length - 1) {
+        setSeeMorePrompt("right");
+        return prev;
+      }
+
+      return prev + 1;
+    });
+  };
 
   const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
     touchEndX.current = null;
@@ -188,9 +214,9 @@ export default function Home() {
                 <span className="typing-cursor" aria-hidden="true" />
               </p>
               <div className="flex justify-center space-x-6 mb-8">
-                <a 
-                  href="https://github.com/bharatchoudhary" 
-                  target="_blank" 
+                <a
+                  href={githubProfile}
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
                 >
@@ -359,6 +385,44 @@ export default function Home() {
                 ))}
               </div>
             </div>
+            <div className="pointer-events-none absolute inset-y-0 left-0 right-0 flex items-center justify-between px-1 sm:px-3">
+              <button
+                type="button"
+                onClick={() => handleArrowNavigation("prev")}
+                className="pointer-events-auto inline-flex items-center justify-center rounded-full bg-white/80 dark:bg-slate-900/70 border border-slate-200 dark:border-white/10 shadow-md text-slate-700 dark:text-slate-100 w-10 h-10 hover:bg-white dark:hover:bg-slate-900 transition"
+                aria-label="Show previous project"
+              >
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M15 18l-6-6 6-6" />
+                </svg>
+              </button>
+              <button
+                type="button"
+                onClick={() => handleArrowNavigation("next")}
+                className="pointer-events-auto inline-flex items-center justify-center rounded-full bg-white/80 dark:bg-slate-900/70 border border-slate-200 dark:border-white/10 shadow-md text-slate-700 dark:text-slate-100 w-10 h-10 hover:bg-white dark:hover:bg-slate-900 transition"
+                aria-label="Show next project"
+              >
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M9 6l6 6-6 6" />
+                </svg>
+              </button>
+            </div>
             <div className="flex justify-center gap-1.5 md:gap-2.5 lg:gap-3 mt-3 md:mt-4 lg:mt-5">
               {projects.map((_, indicatorIndex) => {
                 const isActive = activeProject === indicatorIndex;
@@ -388,6 +452,24 @@ export default function Home() {
                 );
               })}
             </div>
+            {seeMorePrompt && (
+              <div className="mt-6 text-center space-y-2">
+                <p className="text-sm text-slate-500 dark:text-slate-400">
+                  You&apos;ve reached {seeMorePrompt === "left" ? "the first" : "the last"} featured project.
+                </p>
+                <a
+                  href={githubProfile}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-violet-600 text-white font-medium shadow-lg hover:bg-violet-500 transition"
+                >
+                  See more projects on GitHub
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M13 5l7 7-7 7" />
+                  </svg>
+                </a>
+              </div>
+            )}
           </div>
         </div>
       </section>
