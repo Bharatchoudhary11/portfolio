@@ -180,6 +180,19 @@ html {
   vertical-align: baseline;
 }
 
+.download-arrow {
+  animation: downloadBounce 1.2s ease-in-out infinite;
+}
+
+@keyframes downloadBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+}
+
 /* Custom scale for hover effects */
 .hover\:scale-102:hover {
   transform: scale(1.02);
