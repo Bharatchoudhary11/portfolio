@@ -2,8 +2,10 @@
 
 import Navbar from "@/components/Navbar";
 import ProfileFlip from "@/components/ProfileFlip";
+import { db } from "@/lib/firebase";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { useState, useEffect, useRef } from "react";
-import type { TouchEvent } from "react";
+import type { ChangeEvent, FormEvent, TouchEvent } from "react";
 
 const heroHeadline =
   "Full Stack Developer & Software Engineer passionate about building innovative solutions and creating exceptional user experiences.";
@@ -56,6 +58,9 @@ export default function Home() {
   const [seeMorePrompt, setSeeMorePrompt] = useState<null | "left" | "right">(null);
   const touchStartX = useRef<number | null>(null);
   const touchEndX = useRef<number | null>(null);
+  const [contactForm, setContactForm] = useState({ name: "", email: "", message: "" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formFeedback, setFormFeedback] = useState<null | { type: "success" | "error"; message: string }>(null);
 
   useEffect(() => {
     setIsVisible(true);
@@ -160,6 +165,37 @@ export default function Home() {
     "JavaScript", "TypeScript", "React", "Next.js", "Node.js", "Python", "C++",
     "MongoDB", "PostgreSQL", "HTML", "CSS", "Tailwind CSS", "Git", "AWS", "Docker"
   ];
+
+  const handleContactChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { id, value } = event.target;
+    setContactForm((prev) => ({ ...prev, [id]: value }));
+  };
+
+  const handleContactSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (isSubmitting) return;
+
+    if (!contactForm.name || !contactForm.email || !contactForm.message) {
+      setFormFeedback({ type: "error", message: "Please fill out all fields before sending." });
+      return;
+    }
+
+    try {
+      setIsSubmitting(true);
+      setFormFeedback(null);
+      await addDoc(collection(db, "messages"), {
+        ...contactForm,
+        createdAt: serverTimestamp()
+      });
+      setContactForm({ name: "", email: "", message: "" });
+      setFormFeedback({ type: "success", message: "Message sent! I will get back to you shortly." });
+    } catch (error) {
+      console.error("Error sending message:", error);
+      setFormFeedback({ type: "error", message: "Something went wrong. Please try again in a moment." });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <main className="min-h-screen relative overflow-x-hidden">
@@ -562,7 +598,7 @@ export default function Home() {
               </div>
             </div>
             <div>
-              <form className="space-y-6">
+              <form className="space-y-6" onSubmit={handleContactSubmit}>
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
                     Name
@@ -572,6 +608,8 @@ export default function Home() {
                     id="name"
                     name="name"
                     required
+                    value={contactForm.name}
+                    onChange={handleContactChange}
                     className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-slate-900/40 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900 dark:focus:ring-white focus:border-transparent"
                     placeholder="Your name"
                   />
@@ -585,6 +623,8 @@ export default function Home() {
                     id="email"
                     name="email"
                     required
+                    value={contactForm.email}
+                    onChange={handleContactChange}
                     className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-slate-900/40 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900 dark:focus:ring-white focus:border-transparent"
                     placeholder="your.email@example.com"
                   />
@@ -598,15 +638,28 @@ export default function Home() {
                     name="message"
                     rows={4}
                     required
+                    value={contactForm.message}
+                    onChange={handleContactChange}
                     className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-slate-900/40 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900 dark:focus:ring-white focus:border-transparent resize-none"
                     placeholder="Your message"
                   ></textarea>
                 </div>
+                {formFeedback && (
+                  <p
+                    className={`text-sm ${
+                      formFeedback.type === "success" ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400"
+                    }`}
+                    aria-live="polite"
+                  >
+                    {formFeedback.message}
+                  </p>
+                )}
                 <button
                   type="submit"
-                  className="w-full px-6 py-3 rounded-lg bg-slate-900 text-white hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100 transition-colors"
+                  disabled={isSubmitting}
+                  className="w-full px-6 py-3 rounded-lg bg-slate-900 text-white hover:bg-slate-800 disabled:opacity-60 disabled:cursor-not-allowed dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100 transition-colors"
                 >
-                  Send Message
+                  {isSubmitting ? "Sending..." : "Send Message"}
                 </button>
               </form>
             </div>
